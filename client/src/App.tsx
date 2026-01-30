@@ -4,6 +4,7 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import Analytics from "./components/Analytics";
 import Home from "./pages/Home";
 import Collection from "./pages/Collection";
 import Song from "./pages/Song";
@@ -35,6 +36,7 @@ function App() {
         // switchable
       >
         <TooltipProvider>
+          <Analytics />
           <Toaster />
           <Router />
         </TooltipProvider>

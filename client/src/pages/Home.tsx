@@ -3,6 +3,7 @@ import { Music, Heart, Brain, Zap } from "lucide-react";
 import { Link } from "wouter";
 import { useState } from "react";
 import SocialMediaSection from "@/components/SocialMediaSection";
+import NewsletterSection from "@/components/NewsletterSection";
 
 export default function Home() {
   const [activeCollection, setActiveCollection] = useState<string | null>(null);
@@ -143,6 +144,9 @@ export default function Home() {
 
         {/* Social Media Section */}
         <SocialMediaSection />
+
+        {/* Newsletter Section */}
+        <NewsletterSection />
 
         {/* CTA Section */}
         <section className="text-center py-12">

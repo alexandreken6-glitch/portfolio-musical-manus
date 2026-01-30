@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Copy, Download } from "lucide-react";
 import { Link, useRoute } from "wouter";
 import { useState } from "react";
+import MusicPlayer from "@/components/MusicPlayer";
+import NewsletterSection from "@/components/NewsletterSection";
 
 export default function Song() {
   const [, params] = useRoute("/song/:id");
@@ -305,6 +307,15 @@ Eu te amo.
           </div>
         </div>
 
+        {/* Music Player */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold text-white mb-4">Ouça Agora</h2>
+          <MusicPlayer 
+            title={song.title}
+            artist="LÚMEN"
+          />
+        </div>
+
         {/* Share */}
         <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 text-center">
           <h3 className="text-lg font-bold text-white mb-3">Compartilhe Esta Música</h3>
@@ -318,6 +329,9 @@ Eu te amo.
           </div>
         </div>
       </section>
+
+      {/* Newsletter Section */}
+      <NewsletterSection />
 
       {/* Footer */}
       <footer className="border-t border-slate-800 bg-slate-950/50 py-8 mt-16">
