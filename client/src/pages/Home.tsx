@@ -1,3 +1,4 @@
+import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Music, Heart, Brain, Zap } from "lucide-react";
 import { Link } from "wouter";
@@ -6,6 +7,10 @@ import SocialMediaSection from "@/components/SocialMediaSection";
 import NewsletterSection from "@/components/NewsletterSection";
 
 export default function Home() {
+  // The userAuth hooks provides authentication state
+  // To implement login/logout functionality, simply call logout() or redirect to getLoginUrl()
+  let { user, loading, error, isAuthenticated, logout } = useAuth();
+
   const [activeCollection, setActiveCollection] = useState<string | null>(null);
 
   const collections = [

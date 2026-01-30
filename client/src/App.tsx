@@ -8,14 +8,16 @@ import Analytics from "./components/Analytics";
 import Home from "./pages/Home";
 import Collection from "./pages/Collection";
 import Song from "./pages/Song";
-
+import FileManager from "./pages/FileManager";
 
 function Router() {
+  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/collection/:id"} component={Collection} />
       <Route path={"/song/:id"} component={Song} />
+      <Route path={"/files"} component={FileManager} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
