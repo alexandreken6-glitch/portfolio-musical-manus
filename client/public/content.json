@@ -1,0 +1,118 @@
+{
+  "site": {
+    "title": "Manus Music Portfolio",
+    "description": "Uma jornada musical através da fé, da luta mental e do amor incondicional",
+    "author": "Manus AI"
+  },
+  "collections": [
+    {
+      "id": "jesus-judas-trilogy",
+      "title": "A Trilogia de Jesus e Judas",
+      "description": "Uma sequência épica em três atos: a traição, o remorso e a vitória",
+      "color": "#8B0000",
+      "songs": [
+        {
+          "id": "beijo-da-morte",
+          "title": "O Beijo da Morte (30 Moedas)",
+          "part": "Parte 1",
+          "description": "A traição de Judas - um dos momentos mais sombrios da história",
+          "lyrics": "Olha nos olhos, vê o reflexo da ambição...",
+          "style": "Dark Rap Pesado",
+          "themes": ["traição", "ganância", "amizade quebrada"]
+        },
+        {
+          "id": "preço-culpa",
+          "title": "O Preço da Culpa",
+          "part": "Parte 2",
+          "description": "O remorso de Judas, os zombadores e os fiéis ao pé da cruz",
+          "lyrics": "O sol nasceu, mas a luz não me alcança...",
+          "style": "Dark Rap com Contraste Emocional",
+          "themes": ["remorso", "solidão", "fidelidade"]
+        },
+        {
+          "id": "tetelestai",
+          "title": "Tetelestai: O Grito da Vitória",
+          "part": "Parte 3",
+          "description": "A vitória de Jesus na cruz - o triunfo sobre a morte",
+          "lyrics": "O céu se fechou, o meio-dia virou noite...",
+          "style": "Epic Trap Triunfante",
+          "themes": ["vitória", "redenção", "ressurreição"]
+        }
+      ]
+    },
+    {
+      "id": "mental-health",
+      "title": "Explorando a Mente",
+      "description": "Músicas sobre as lutas invisíveis: ansiedade, pensamentos intrusivos e alucinação",
+      "color": "#4B0082",
+      "songs": [
+        {
+          "id": "labirinto-vidro",
+          "title": "O Labirinto de Vidro",
+          "description": "Os problemas que surgem em nossa mente sem que queiramos",
+          "lyrics": "Às vezes o silêncio é o barulho mais alto que eu ouço...",
+          "style": "Trap Melódico Introspectivo",
+          "themes": ["ansiedade", "pensamentos intrusivos", "paz interior"]
+        },
+        {
+          "id": "espelho-derrete",
+          "title": "O Espelho que Derrete",
+          "description": "A distorção da realidade - alucinações e perda de contato",
+          "lyrics": "As paredes respiram, o teto começa a baixar...",
+          "style": "Dark Trap Experimental",
+          "themes": ["alucinação", "psicose", "realidade distorcida"]
+        }
+      ]
+    },
+    {
+      "id": "personal",
+      "title": "Histórias Pessoais",
+      "description": "Composições que celebram o amor, a gratidão e a misericórdia",
+      "color": "#FF6B9D",
+      "songs": [
+        {
+          "id": "primeira-pedra",
+          "title": "A Primeira Pedra",
+          "description": "Sobre não julgar e não condenar - o ensinamento de Jesus",
+          "lyrics": "O círculo se fecha, o dedo aponta o erro...",
+          "style": "Balada Emocional",
+          "themes": ["misericórdia", "julgamento", "perdão"]
+        },
+        {
+          "id": "ponte-saudade",
+          "title": "Ponte de Saudade (De Tóquio ao Brasil)",
+          "description": "Uma homenagem à mãe - a luta, a distância e o amor eterno",
+          "lyrics": "Lembro do tempo, a casa cheia, mas a mesa vazia...",
+          "style": "Balada Trap",
+          "themes": ["gratidão", "saudade", "amor incondicional"]
+        }
+      ]
+    }
+  ],
+  "prompts": {
+    "audio": [
+      {
+        "songId": "beijo-da-morte",
+        "title": "Prompt de Áudio - O Beijo da Morte",
+        "content": "Style: Dark Rap Pesado, Boom Bap, Clima tenso..."
+      },
+      {
+        "songId": "tetelestai",
+        "title": "Prompt de Áudio - Tetelestai",
+        "content": "Style: Epic Trap, Metais poderosos, Coros gloriosos..."
+      }
+    ],
+    "video": [
+      {
+        "songId": "tetelestai",
+        "title": "Prompt de Vídeo - Tetelestai",
+        "content": "Visual Style: Epic Cinematic, High Fantasy meets Biblical Realism..."
+      },
+      {
+        "songId": "espelho-derrete",
+        "title": "Prompt de Vídeo - O Espelho que Derrete",
+        "content": "Visual Style: Dark Surrealism, Glitch Art, Vaporwave/Cyberpunk..."
+      }
+    ]
+  }
+}
