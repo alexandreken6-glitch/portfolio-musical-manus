@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Music, Heart, Brain, Zap } from "lucide-react";
 import { Link } from "wouter";
 import { useState } from "react";
+import SocialMediaSection from "@/components/SocialMediaSection";
 
 export default function Home() {
   const [activeCollection, setActiveCollection] = useState<string | null>(null);
@@ -139,6 +140,9 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Social Media Section */}
+        <SocialMediaSection />
 
         {/* CTA Section */}
         <section className="text-center py-12">
