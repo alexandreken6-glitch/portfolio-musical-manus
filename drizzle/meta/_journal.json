@@ -15,6 +15,13 @@
       "when": 1769799414000,
       "tag": "0001_flashy_big_bertha",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1769843443357,
+      "tag": "0002_damp_terror",
+      "breakpoints": true
     }
   ]
 }

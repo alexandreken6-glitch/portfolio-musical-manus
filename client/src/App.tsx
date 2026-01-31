@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import Collection from "./pages/Collection";
 import Song from "./pages/Song";
 import FileManager from "./pages/FileManager";
+import Dashboard from "./pages/Dashboard";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -18,6 +19,7 @@ function Router() {
       <Route path={"/collection/:id"} component={Collection} />
       <Route path={"/song/:id"} component={Song} />
       <Route path={"/files"} component={FileManager} />
+      <Route path={"/dashboard"} component={Dashboard} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

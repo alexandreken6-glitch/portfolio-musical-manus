@@ -59,3 +59,45 @@ export const musicMetadata = mysqlTable("music_metadata", {
 
 export type MusicMetadata = typeof musicMetadata.$inferSelect;
 export type InsertMusicMetadata = typeof musicMetadata.$inferInsert;
+
+// Song statistics table
+export const songStats = mysqlTable("song_stats", {
+  id: int("id").autoincrement().primaryKey(),
+  songId: varchar("songId", { length: 100 }).notNull().unique(),
+  songTitle: varchar("songTitle", { length: 255 }).notNull(),
+  views: int("views").default(0).notNull(),
+  likes: int("likes").default(0).notNull(),
+  shares: int("shares").default(0).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type SongStat = typeof songStats.$inferSelect;
+export type InsertSongStat = typeof songStats.$inferInsert;
+
+// Comments table
+export const comments = mysqlTable("comments", {
+  id: int("id").autoincrement().primaryKey(),
+  songId: varchar("songId", { length: 100 }).notNull(),
+  userId: int("userId"),
+  userName: varchar("userName", { length: 255 }).notNull(),
+  content: text("content").notNull(),
+  approved: mysqlEnum("approved", ["pending", "approved", "rejected"]).default("pending").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Comment = typeof comments.$inferSelect;
+export type InsertComment = typeof comments.$inferInsert;
+
+// Page views tracking
+export const pageViews = mysqlTable("page_views", {
+  id: int("id").autoincrement().primaryKey(),
+  pageType: varchar("pageType", { length: 50 }).notNull(), // 'home', 'song', 'collection'
+  pageId: varchar("pageId", { length: 100 }),
+  source: varchar("source", { length: 50 }), // 'instagram', 'tiktok', 'direct', 'search'
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type PageView = typeof pageViews.$inferSelect;
+export type InsertPageView = typeof pageViews.$inferInsert;

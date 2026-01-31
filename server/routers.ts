@@ -5,6 +5,7 @@ import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
 import { z } from "zod";
 import { storagePut } from "./storage";
 import { saveFileUpload, getUserFileUploads, deleteFileUpload } from "./db";
+import { getSongComments, addComment, getTopSongs, trackPageView, getTrafficBySource } from "./db.stats";
 import { nanoid } from "nanoid";
 
 export const appRouter = router({
@@ -55,6 +56,58 @@ export const appRouter = router({
         await deleteFileUpload(input.fileId, ctx.user.id);
         return { success: true };
       }),
+  }),
+
+  comments: router({
+    list: publicProcedure
+      .input(z.object({ songId: z.string() }))
+      .query(async ({ input }) => {
+        return await getSongComments(input.songId);
+      }),
+    add: publicProcedure
+      .input(
+        z.object({
+          songId: z.string(),
+          userName: z.string().min(1).max(255),
+          content: z.string().min(1).max(1000),
+          userId: z.number().optional(),
+        })
+      )
+      .mutation(async ({ input }) => {
+        await addComment({
+          songId: input.songId,
+          userName: input.userName,
+          content: input.content,
+          userId: input.userId,
+          approved: "pending",
+        });
+        return { success: true };
+      }),
+  }),
+
+  stats: router({
+    topSongs: publicProcedure.query(async () => {
+      return await getTopSongs(5);
+    }),
+    trackView: publicProcedure
+      .input(
+        z.object({
+          pageType: z.enum(["home", "song", "collection"]),
+          pageId: z.string().optional(),
+          source: z.string().optional(),
+        })
+      )
+      .mutation(async ({ input }) => {
+        await trackPageView({
+          pageType: input.pageType,
+          pageId: input.pageId,
+          source: input.source,
+        });
+        return { success: true };
+      }),
+    trafficBySource: publicProcedure.query(async () => {
+      return await getTrafficBySource();
+    }),
   }),
 });
 
