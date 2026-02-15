@@ -101,3 +101,16 @@ export const pageViews = mysqlTable("page_views", {
 
 export type PageView = typeof pageViews.$inferSelect;
 export type InsertPageView = typeof pageViews.$inferInsert;
+
+// Testimonies table for "De Jesus até Weyda" page
+export const testimonies = mysqlTable("testimonies", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  message: text("message").notNull(),
+  approved: mysqlEnum("approved", ["pending", "approved", "rejected"]).default("pending").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Testimony = typeof testimonies.$inferSelect;
+export type InsertTestimony = typeof testimonies.$inferInsert;

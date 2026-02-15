@@ -3,9 +3,46 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
 import { useState } from "react";
+import { trpc } from "@/lib/trpc";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 
 export default function JesusAteWeyda() {
   const [showLyrics, setShowLyrics] = useState(false);
+  const [testimonyName, setTestimonyName] = useState("");
+  const [testimonyMessage, setTestimonyMessage] = useState("");
+  
+  const { data: testimonies, refetch: refetchTestimonies } = trpc.testimonies.list.useQuery({ limit: 20 });
+  const addTestimony = trpc.testimonies.add.useMutation({
+    onSuccess: () => {
+      toast.success("Testemunho compartilhado!", {
+        description: "Obrigado por compartilhar sua experiência de fé."
+      });
+      setTestimonyName("");
+      setTestimonyMessage("");
+      refetchTestimonies();
+    },
+    onError: () => {
+      toast.error("Erro ao enviar", {
+        description: "Tente novamente mais tarde."
+      });
+    }
+  });
+  
+  const handleSubmitTestimony = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!testimonyName.trim() || !testimonyMessage.trim()) {
+      toast.error("Preencha todos os campos");
+      return;
+    }
+    if (testimonyMessage.length < 10) {
+      toast.error("Mensagem muito curta", {
+        description: "Compartilhe um pouco mais sobre sua experiência."
+      });
+      return;
+    }
+    addTestimony.mutate({ name: testimonyName, message: testimonyMessage });
+  };
   
   const handleShare = (platform?: string) => {
     const url = window.location.href;
@@ -25,11 +62,7 @@ export default function JesusAteWeyda() {
     }
   };
   
-  const handlePlayMusic = () => {
-    toast.info("Em breve!", {
-      description: "A música estará disponível em breve. Aguarde!"
-    });
-  };
+  const audioUrl = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663031543551/bnTOoSkLRrXKPkwl.mp3";
 
   const timeline = [
     {
@@ -251,15 +284,22 @@ export default function JesusAteWeyda() {
             comum orando nas ruas.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg" 
-              className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold"
-              onClick={handlePlayMusic}
+          {/* Audio Player */}
+          <div className="mb-8">
+            <audio 
+              controls 
+              className="w-full max-w-2xl mx-auto"
+              style={{
+                filter: 'sepia(20%) saturate(70%) hue-rotate(15deg)',
+                borderRadius: '8px'
+              }}
             >
-              <Play className="w-5 h-5 mr-2" />
-              Ouvir Música
-            </Button>
+              <source src={audioUrl} type="audio/mpeg" />
+              Seu navegador não suporta o elemento de áudio.
+            </audio>
+          </div>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="lg" 
               variant="outline" 
@@ -454,6 +494,96 @@ export default function JesusAteWeyda() {
             "Porque Jesus não é passado... Ele é presente, Ele é real... 
             E enquanto houver alguém orando nas ruas... A mensagem será imortal."
           </p>
+        </div>
+      </section>
+
+      {/* Testimonies Section */}
+      <section className="py-20 px-4 bg-gradient-to-b from-slate-950 to-blue-950/30">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <Heart className="w-12 h-12 text-amber-400 mx-auto mb-4" />
+            <h2 className="text-4xl font-bold text-white mb-4">
+              Compartilhe Sua História
+            </h2>
+            <p className="text-xl text-slate-300">
+              Você também faz parte dessa jornada de 2000 anos. Compartilhe como Jesus tocou sua vida.
+            </p>
+          </div>
+
+          {/* Testimony Form */}
+          <Card className="bg-slate-900/50 border-amber-500/20 p-8 mb-12">
+            <form onSubmit={handleSubmitTestimony} className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-slate-300 mb-2">
+                  Seu Nome
+                </label>
+                <Input
+                  value={testimonyName}
+                  onChange={(e) => setTestimonyName(e.target.value)}
+                  placeholder="Digite seu nome"
+                  className="bg-slate-800/50 border-slate-700 text-white"
+                  maxLength={255}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-300 mb-2">
+                  Seu Testemunho
+                </label>
+                <Textarea
+                  value={testimonyMessage}
+                  onChange={(e) => setTestimonyMessage(e.target.value)}
+                  placeholder="Compartilhe como Jesus tocou sua vida..."
+                  className="bg-slate-800/50 border-slate-700 text-white min-h-[120px]"
+                  maxLength={1000}
+                />
+                <p className="text-sm text-slate-400 mt-2">
+                  {testimonyMessage.length}/1000 caracteres
+                </p>
+              </div>
+              <Button
+                type="submit"
+                disabled={addTestimony.isPending}
+                className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-semibold"
+              >
+                {addTestimony.isPending ? "Enviando..." : "🙏 Compartilhar Testemunho"}
+              </Button>
+            </form>
+          </Card>
+
+          {/* Testimonies List */}
+          <div className="space-y-6">
+            <h3 className="text-2xl font-bold text-white text-center mb-8">
+              Testemunhos da Comunidade
+            </h3>
+            {testimonies && testimonies.length > 0 ? (
+              testimonies.map((testimony) => (
+                <Card key={testimony.id} className="bg-slate-900/30 border-blue-500/20 p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
+                      {testimony.name.charAt(0).toUpperCase()}
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h4 className="font-semibold text-white">{testimony.name}</h4>
+                        <span className="text-sm text-slate-400">
+                          • {new Date(testimony.createdAt).toLocaleDateString('pt-BR')}
+                        </span>
+                      </div>
+                      <p className="text-slate-300 leading-relaxed">
+                        {testimony.message}
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+              ))
+            ) : (
+              <Card className="bg-slate-900/30 border-slate-700 p-12 text-center">
+                <p className="text-slate-400 text-lg">
+                  Seja o primeiro a compartilhar seu testemunho! 🙏
+                </p>
+              </Card>
+            )}
+          </div>
         </div>
       </section>
 

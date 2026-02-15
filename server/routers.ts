@@ -4,7 +4,7 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
 import { z } from "zod";
 import { storagePut } from "./storage";
-import { saveFileUpload, getUserFileUploads, deleteFileUpload } from "./db";
+import { saveFileUpload, getUserFileUploads, deleteFileUpload, createTestimony, getApprovedTestimonies } from "./db";
 import { getSongComments, addComment, getTopSongs, trackPageView, getTrafficBySource } from "./db.stats";
 import { nanoid } from "nanoid";
 
@@ -80,6 +80,29 @@ export const appRouter = router({
           content: input.content,
           userId: input.userId,
           approved: "pending",
+        });
+        return { success: true };
+      }),
+  }),
+
+  testimonies: router({
+    list: publicProcedure
+      .input(z.object({ limit: z.number().optional(), offset: z.number().optional() }))
+      .query(async ({ input }) => {
+        return await getApprovedTestimonies(input.limit, input.offset);
+      }),
+    add: publicProcedure
+      .input(
+        z.object({
+          name: z.string().min(1).max(255),
+          message: z.string().min(10).max(1000),
+        })
+      )
+      .mutation(async ({ input }) => {
+        await createTestimony({
+          name: input.name,
+          message: input.message,
+          approved: "approved", // Auto-approve for now, can add moderation later
         });
         return { success: true };
       }),

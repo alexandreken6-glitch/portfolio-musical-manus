@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, fileUploads, InsertFileUpload, musicMetadata, InsertMusicMetadata } from "../drizzle/schema";
+import { InsertUser, users, fileUploads, InsertFileUpload, musicMetadata, InsertMusicMetadata, testimonies, InsertTestimony } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -133,3 +133,41 @@ export async function getUserMusicMetadata(userId: number) {
 }
 
 // TODO: add more feature queries here as your schema grows.
+
+// Testimony helpers
+export async function createTestimony(testimony: InsertTestimony) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const result = await db.insert(testimonies).values(testimony);
+  return result;
+}
+
+export async function getApprovedTestimonies(limit: number = 50, offset: number = 0) {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const result = await db
+    .select()
+    .from(testimonies)
+    .where(eq(testimonies.approved, "approved"))
+    .orderBy(testimonies.createdAt)
+    .limit(limit)
+    .offset(offset);
+  
+  return result;
+}
+
+export async function getAllTestimonies(limit: number = 100, offset: number = 0) {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const result = await db
+    .select()
+    .from(testimonies)
+    .orderBy(testimonies.createdAt)
+    .limit(limit)
+    .offset(offset);
+  
+  return result;
+}
