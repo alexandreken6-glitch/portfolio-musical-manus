@@ -11,6 +11,7 @@ import Song from "./pages/Song";
 import FileManager from "./pages/FileManager";
 import Dashboard from "./pages/Dashboard";
 import JesusAteWeyda from "./pages/JesusAteWeyda";
+import TestimoniesModeration from "./pages/TestimoniesModeration";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -22,6 +23,7 @@ function Router() {
       <Route path={"/files"} component={FileManager} />
       <Route path={"/dashboard"} component={Dashboard} />
       <Route path={"/jesus-ate-weyda"} component={JesusAteWeyda} />
+      <Route path={"/admin/testimonies"} component={TestimoniesModeration} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

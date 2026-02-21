@@ -16,3 +16,12 @@
 - [x] Fazer upload do MP3 "De Jesus até Weyda" para CDN
 - [x] Integrar player de áudio funcional na página
 - [x] Testar reprodução de áudio
+
+- [x] Adicionar campo 'status' na tabela de testemunhos (pending/approved/rejected)
+- [x] Criar API tRPC para listar testemunhos pendentes
+- [x] Criar API tRPC para aprovar testemunho
+- [x] Criar API tRPC para rejeitar testemunho
+- [x] Criar página de painel de moderação (/admin/testimonies)
+- [x] Proteger rota de moderação (apenas owner)
+- [x] Atualizar query pública para mostrar apenas testemunhos aprovados
+- [x] Adicionar testes para moderação

@@ -4,7 +4,7 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
 import { z } from "zod";
 import { storagePut } from "./storage";
-import { saveFileUpload, getUserFileUploads, deleteFileUpload, createTestimony, getApprovedTestimonies } from "./db";
+import { saveFileUpload, getUserFileUploads, deleteFileUpload, createTestimony, getApprovedTestimonies, getPendingTestimonies, approveTestimony, rejectTestimony } from "./db";
 import { getSongComments, addComment, getTopSongs, trackPageView, getTrafficBySource } from "./db.stats";
 import { nanoid } from "nanoid";
 
@@ -102,8 +102,41 @@ export const appRouter = router({
         await createTestimony({
           name: input.name,
           message: input.message,
-          approved: "approved", // Auto-approve for now, can add moderation later
+          approved: "pending", // Changed to pending for moderation
         });
+        return { success: true };
+      }),
+    
+    // Admin moderation procedures
+    listPending: protectedProcedure
+      .input(z.object({ limit: z.number().optional(), offset: z.number().optional() }))
+      .query(async ({ ctx, input }) => {
+        // Only owner can moderate
+        if (ctx.user.openId !== process.env.OWNER_OPEN_ID) {
+          throw new Error("Unauthorized");
+        }
+        return await getPendingTestimonies(input.limit, input.offset);
+      }),
+    
+    approve: protectedProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ ctx, input }) => {
+        // Only owner can moderate
+        if (ctx.user.openId !== process.env.OWNER_OPEN_ID) {
+          throw new Error("Unauthorized");
+        }
+        await approveTestimony(input.id);
+        return { success: true };
+      }),
+    
+    reject: protectedProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ ctx, input }) => {
+        // Only owner can moderate
+        if (ctx.user.openId !== process.env.OWNER_OPEN_ID) {
+          throw new Error("Unauthorized");
+        }
+        await rejectTestimony(input.id);
         return { success: true };
       }),
   }),

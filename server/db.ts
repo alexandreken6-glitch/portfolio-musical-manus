@@ -171,3 +171,42 @@ export async function getAllTestimonies(limit: number = 100, offset: number = 0)
   
   return result;
 }
+
+export async function getPendingTestimonies(limit: number = 100, offset: number = 0) {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const result = await db
+    .select()
+    .from(testimonies)
+    .where(eq(testimonies.approved, "pending"))
+    .orderBy(testimonies.createdAt)
+    .limit(limit)
+    .offset(offset);
+  
+  return result;
+}
+
+export async function approveTestimony(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const result = await db
+    .update(testimonies)
+    .set({ approved: "approved", updatedAt: new Date() })
+    .where(eq(testimonies.id, id));
+  
+  return result;
+}
+
+export async function rejectTestimony(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const result = await db
+    .update(testimonies)
+    .set({ approved: "rejected", updatedAt: new Date() })
+    .where(eq(testimonies.id, id));
+  
+  return result;
+}
