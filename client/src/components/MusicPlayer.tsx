@@ -36,7 +36,6 @@ export default function MusicPlayer({
               width="100%"
               height="80"
               frameBorder="0"
-              allowTransparency={true}
               allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
               className="w-full"
             />

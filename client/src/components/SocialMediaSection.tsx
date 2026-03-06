@@ -52,7 +52,6 @@ export default function SocialMediaSection() {
                   height="300"
                   frameBorder="0"
                   scrolling="no"
-                  allowTransparency={true}
                   className="bg-background"
                 />
               </div>
