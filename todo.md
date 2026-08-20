@@ -25,3 +25,10 @@
 - [x] Proteger rota de moderação (apenas owner)
 - [x] Atualizar query pública para mostrar apenas testemunhos aprovados
 - [x] Adicionar testes para moderação
+
+- [x] Consolidar letra completa de "Quando Só Resta a Fé"
+- [x] Preparar prompt de produção compatível com Suno
+
+- [x] Criar apresentação compartilhável com a história e a letra de "Quando Só Resta a Fé"
+
+- [x] Criar sequência de imagens verticais para TikTok de "Quando Só Resta a Fé"
