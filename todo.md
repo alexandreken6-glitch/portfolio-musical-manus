@@ -33,5 +33,8 @@
 
 - [x] Criar sequência de imagens verticais para TikTok de "Quando Só Resta a Fé"
 
-- [ ] Produzir videoclipe vertical completo de "Quando Só Resta a Fé" a partir do áudio enviado
-- [ ] Montar e sincronizar as 12 cenas no vídeo final de 4min26s
+- [x] Produzir videoclipe vertical completo de "Quando Só Resta a Fé" a partir do áudio enviado
+- [x] Montar e sincronizar as 12 cenas no vídeo final de 4min26s
+- [x] Gerar ou obter as 10 cenas faltantes como cenas visuais realmente distintas
+- [x] Remontar o videoclipe final usando 12 cenas reais e revalidar duração/sincronia de 4min26s
+- [x] Entregar a versão final revisada do videoclipe
