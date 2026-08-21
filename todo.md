@@ -32,3 +32,6 @@
 - [x] Criar apresentação compartilhável com a história e a letra de "Quando Só Resta a Fé"
 
 - [x] Criar sequência de imagens verticais para TikTok de "Quando Só Resta a Fé"
+
+- [ ] Produzir videoclipe vertical completo de "Quando Só Resta a Fé" a partir do áudio enviado
+- [ ] Montar e sincronizar as 12 cenas no vídeo final de 4min26s
